@@ -1,0 +1,24 @@
+Configuration:
+  status: warn
+
+  appenders:
+    RollingFile:
+      - name: LogToRollingFile
+        fileName: /var/log/ble-mesh-hub.log
+        filePattern: "$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz"
+        PatternLayout:
+          pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 10MB
+        DefaultRollOverStrategy:
+          max: 10
+
+  Loggers:
+    logger:
+      - name: BleMeshHub
+        level: info
+    Root:
+      level: warn
+      AppenderRef:
+        - ref: LogToRollingFile
